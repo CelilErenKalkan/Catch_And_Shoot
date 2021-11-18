@@ -77,9 +77,10 @@ public class PlayerNPC : MonoBehaviour
                         Debug.Log("Jump Up");
                     }
 
-                    ball.GetComponent<BallScript>().GotCaught(rightHand);
+                    GameManager.Instance.BallChange(rightHand.transform.GetChild(5).gameObject);
                     GameManager.Instance.player = gameObject;
                     playerMovement.enabled = true;
+
 
                 }
             }

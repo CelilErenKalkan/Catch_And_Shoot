@@ -86,6 +86,13 @@ public class GameManager : MonoBehaviour
             StartButton();
     }
 
+    public void BallChange(GameObject newBall)
+    {
+        ball = newBall;
+        newBall.SetActive(true);
+        cam.GetComponent<CameraZoom>().TargetChanger(ball, cam.transform.position);
+    }
+
     public void LevelCheck()
     {
         canvas.transform.GetChild(5).gameObject.SetActive(false);
