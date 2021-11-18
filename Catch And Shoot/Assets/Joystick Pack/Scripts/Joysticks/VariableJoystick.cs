@@ -49,7 +49,7 @@ public class VariableJoystick : Joystick
     public override void OnPointerUp(PointerEventData eventData)
     {
         GameManager.Instance.isPressed = false;
-        GameManager.Instance.isPlayable = false;
+        //GameManager.Instance.isPlayable = false;
         _anim.SetTrigger("Throw");
         _anim.SetBool("isRunning", false);
         if (joystickType != JoystickType.Fixed)

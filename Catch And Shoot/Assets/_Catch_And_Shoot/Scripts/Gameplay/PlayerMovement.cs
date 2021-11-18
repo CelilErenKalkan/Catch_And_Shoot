@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float speed;
-    private float varSpeed = 0.5f;
+    private float varSpeed = 0.75f;
     public VariableJoystick variableJoystick;
     public Rigidbody rb;
 
@@ -15,9 +15,10 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Throw");
         else if (GameManager.Instance.isPlayable)
         {
-            Vector3 direction = Vector3.forward * varSpeed + Vector3.right * variableJoystick.Horizontal * varSpeed;
-            transform.LookAt(transform.position + direction);
-            transform.Translate(direction * speed * Time.fixedDeltaTime, Space.World);
+            Vector3 direction = Vector3.forward + Vector3.right * variableJoystick.Horizontal * varSpeed;
+            var toLook = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, toLook.normalized, Time.fixedDeltaTime * 2);
+            transform.Translate(transform.forward * speed * Time.fixedDeltaTime, Space.World);
         }
     }
 }

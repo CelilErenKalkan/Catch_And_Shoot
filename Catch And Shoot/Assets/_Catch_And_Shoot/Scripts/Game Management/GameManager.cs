@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     private Button _input;
     [HideInInspector] public GameObject player;
     [HideInInspector] public GameObject cam;
+    [HideInInspector] public GameObject ball;
 
 
 
@@ -59,6 +60,7 @@ public class GameManager : MonoBehaviour
 
         canvas = GameObject.Find("Canvas");
         player = GameObject.Find("Player");
+        ball = GameObject.Find("Ball");
         _level = canvas.transform.GetChild(0).GetComponent<TMP_Text>();
         _successful = canvas.transform.GetChild(1).GetComponent<TMP_Text>();
         _fail = canvas.transform.GetChild(2).GetComponent<TMP_Text>();
