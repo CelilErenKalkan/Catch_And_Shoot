@@ -34,4 +34,15 @@ public class BallScript : MonoBehaviour
         var dir = GameManager.Instance.player.transform.forward + GameManager.Instance.player.transform.up.normalized;
         rigid.AddForce(dir * 500);
     }
+
+    public void GotCaught(GameObject rightHand)
+    {
+        rigid.velocity = Vector3.zero;
+        rigid.isKinematic = true;
+        rigid.useGravity = false;
+        coll.isTrigger = true;
+        transform.parent = rightHand.transform;
+        transform.position = new Vector3(0.085f, 0.062f, 0.086f);
+        rigid.isKinematic = false;
+    }
 }
