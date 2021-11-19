@@ -119,31 +119,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartButton()
-    {
-        _start.SetActive(false);
-        _level.gameObject.SetActive(true);
-        if (GameManager.Instance.lvl == 1)
-        {
-            StartCoroutine(FirstTime(FTUE));
-        }
-        isPlayable = true;
-        _startOnce = true;
-    }
+    //public void StartButton()
+    //{
+    //    _start.SetActive(false);
+    //    _level.gameObject.SetActive(true);
+    //    if (GameManager.Instance.lvl == 1)
+    //    {
+    //        StartCoroutine(FirstTime(FTUE));
+    //    }
+    //    isPlayable = true;
+    //    _startOnce = true;
+    //}
 
-    public IEnumerator FirstTime(GameObject x)
-    {
-        x.gameObject.SetActive(true);
-        yield return new WaitForSeconds(3.0f);
-        x.gameObject.SetActive(false);
-    }
+    //public IEnumerator FirstTime(GameObject x)
+    //{
+    //    x.gameObject.SetActive(true);
+    //    yield return new WaitForSeconds(3.0f);
+    //    x.gameObject.SetActive(false);
+    //}
 
-    public IEnumerator Timer()
-    {
-        start = false;
-        yield return new WaitForSeconds(2.0f);
-        start = true;
-    }
+    //public IEnumerator Timer()
+    //{
+    //    start = false;
+    //    yield return new WaitForSeconds(2.0f);
+    //    start = true;
+    //}
 
     public void PlayerChange(GameObject x)
     {
@@ -154,6 +154,7 @@ public class GameManager : MonoBehaviour
         var to = new Vector3(0, 0, 0);
         player.transform.eulerAngles = Vector3.Lerp(transform.rotation.eulerAngles, to, Time.deltaTime);
         isPlayable = true;
+        player.transform.GetChild(1).gameObject.SetActive(true);
     }
 
     public void Throw ()

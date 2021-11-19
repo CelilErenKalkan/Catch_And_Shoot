@@ -14,7 +14,8 @@ public class PlayerNPC : MonoBehaviour
     private PlayerMovement playerMovement;
 
     private float _range = 25.0f;
-    private float _catchDis = 3.0f;
+    private float _catchDis = 2.0f;
+    public Vector3 destination;
 
     // Start is called before the first frame update
     void Start()
@@ -58,8 +59,7 @@ public class PlayerNPC : MonoBehaviour
                 var newPos = transform.position.x - runaway;
                 if (-1 > runaway || runaway > 1)
                 {
-                    var destination = DestinationCalculator();
-                    Debug.Log(destination);
+                    //destination = DestinationCalculator();
                     agent.SetDestination(destination);
                 }
                 else
@@ -112,11 +112,11 @@ public class PlayerNPC : MonoBehaviour
         }
     }
 
-    Vector3 DestinationCalculator()
-    {
-        var z = Mathf.Abs(transform.position.z - ball.transform.position.z);
-        var angle = Vector3.Angle(GameManager.Instance.player.transform.forward, transform.forward * -1);
-        var x = Mathf.Tan(angle) * z;
-        return new Vector3(x, transform.position.y, transform.position.z);
-    }
+    //Vector3 DestinationCalculator()
+    //{
+    //    var z = Mathf.Abs(transform.position.z - ball.transform.position.z);
+    //    var angle = Vector3.Angle(GameManager.Instance.player.transform.forward, transform.forward * -1);
+    //    var x = Mathf.Tan(angle) * z;
+    //    return new Vector3(x, transform.position.y, transform.position.z);
+    //}
 }

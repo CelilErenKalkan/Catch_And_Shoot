@@ -20,7 +20,7 @@ public class BallScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
     {
 
         if (hasThrown)
@@ -31,6 +31,16 @@ public class BallScript : MonoBehaviour
             transform.rotation = parentbone.transform.rotation;
             var dir = GameManager.Instance.player.transform.forward;
             rigid.velocity = constantSpeed * (dir);
+
+            Ray ray = new Ray(GameManager.Instance.player.transform.position, GameManager.Instance.player.transform.forward);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.isTrigger)
+                {
+                    GameManager.Instance.closest.GetComponent<PlayerNPC>().destination = hit.point;
+                }
+            }
         }
     }
 
@@ -45,7 +55,6 @@ public class BallScript : MonoBehaviour
     public void GotCaught()
     {
         ReleaseMe();
-        Debug.Log("GotCaught");
         coll.isTrigger = true;
         rigid.velocity = Vector3.zero;
         rigid.useGravity = false;
