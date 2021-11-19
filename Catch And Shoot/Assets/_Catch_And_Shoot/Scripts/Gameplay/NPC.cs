@@ -22,7 +22,7 @@ public class NPC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Instance.isPlayable)
+        if (GameManager.Instance.isPlayable && GameManager.Instance.isPressed)
         {
             Catch();
         }
@@ -36,8 +36,9 @@ public class NPC : MonoBehaviour
         {
             Debug.Log("Got ya!");
             _anim.SetTrigger("Tackle");
+            agent.enabled = false;
         }
-        else if(Distance <= _range)
+        else if(Distance <= _range && target.transform.position.z < transform.position.z)
         {
             _anim.SetBool("isRunning", true);
             agent.SetDestination(target.transform.position);

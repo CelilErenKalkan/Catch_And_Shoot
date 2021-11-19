@@ -10,7 +10,6 @@ public class VariableJoystick : Joystick
 
     [SerializeField] private float moveThreshold = 1;
     [SerializeField] private JoystickType joystickType = JoystickType.Fixed;
-    private Animator _anim;
 
     private Vector2 fixedPosition = Vector2.zero;
 
@@ -31,13 +30,13 @@ public class VariableJoystick : Joystick
         base.Start();
         fixedPosition = background.anchoredPosition;
         SetMode(joystickType);
-        _anim = GameManager.Instance.player.transform.GetChild(0).GetComponent<Animator>();
     }
 
     public override void OnPointerDown(PointerEventData eventData)
     {
         GameManager.Instance.isPressed = true;
-        _anim.SetBool("isRunning", true);
+        GameManager.Instance.isPlayable = true;
+        GameManager.Instance.player.transform.GetChild(0).GetComponent<Animator>().SetBool("isRunning", true);
         if (joystickType != JoystickType.Fixed)
         {
             background.anchoredPosition = ScreenPointToAnchoredPosition(eventData.position);
@@ -49,8 +48,9 @@ public class VariableJoystick : Joystick
     public override void OnPointerUp(PointerEventData eventData)
     {
         GameManager.Instance.isPressed = false;
-        _anim.SetTrigger("Throw");
-        _anim.SetBool("isRunning", false);
+        GameManager.Instance.isPlayable = false;
+        GameManager.Instance.player.transform.GetChild(0).GetComponent<Animator>().SetTrigger("Throw");
+        GameManager.Instance.player.transform.GetChild(0).GetComponent<Animator>().SetBool("isRunning", false);
         GameManager.Instance.player.GetComponent<PlayerMovement>().enabled = false;
 
         if (joystickType != JoystickType.Fixed)

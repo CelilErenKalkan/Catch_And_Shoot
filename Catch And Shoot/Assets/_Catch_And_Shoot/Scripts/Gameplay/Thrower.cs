@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Thrower : MonoBehaviour
 {
-        public void ThrowBall()
+    public void ThrowBall()
     {
         BallScript ballscript = GameManager.Instance.ball.GetComponent<BallScript>();
         ballscript.ReleaseMe();

@@ -7,8 +7,8 @@ public class BallScript : MonoBehaviour
     private GameObject parentbone;
     private Rigidbody rigid;
     private Collider coll;
-    private Vector3 lastPos;
-    private Vector3 curVel;
+    [SerializeField]private bool hasThrown;
+    private float constantSpeed = 30.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -20,18 +20,34 @@ public class BallScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        
+
+        if (hasThrown)
+        {
+            transform.parent = null;
+            rigid.useGravity = true;
+            coll.isTrigger = false;
+            transform.rotation = parentbone.transform.rotation;
+            var dir = GameManager.Instance.player.transform.forward;
+            rigid.velocity = constantSpeed * (dir);
+        }
     }
 
     public void ReleaseMe()
     {
-        transform.parent = null;
-        rigid.useGravity = true;
-        coll.isTrigger = false;
-        transform.rotation = parentbone.transform.rotation;
-        var dir = GameManager.Instance.player.transform.forward + GameManager.Instance.player.transform.up.normalized;
-        rigid.AddForce(dir * 500);
+        if (!hasThrown)
+            hasThrown = true;
+        else if (hasThrown)
+            hasThrown = false;
+    }
+
+    public void GotCaught()
+    {
+        ReleaseMe();
+        Debug.Log("GotCaught");
+        coll.isTrigger = true;
+        rigid.velocity = Vector3.zero;
+        rigid.useGravity = false;
     }
 }

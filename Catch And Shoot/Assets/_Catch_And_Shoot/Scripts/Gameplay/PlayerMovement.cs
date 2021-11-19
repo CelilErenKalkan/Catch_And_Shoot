@@ -11,11 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (GameManager.Instance.isPlayable && !GameManager.Instance.isPressed)
-        {
-            GameManager.Instance.isPlayable = false;
-        }
-        else if (GameManager.Instance.isPlayable && GameManager.Instance.isPressed)
+        if (GameManager.Instance.isPlayable && GameManager.Instance.isPressed)
         {
             Vector3 direction = Vector3.forward + Vector3.right * variableJoystick.Horizontal * varSpeed;
             var toLook = Quaternion.LookRotation(direction);

@@ -140,4 +140,13 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         start = true;
     }
+
+    public void PlayerChange(GameObject x)
+    {
+        player = x;
+        player.GetComponent<PlayerNPC>().enabled = false;
+        var to = new Vector3(0, 0, 0);
+        player.transform.eulerAngles = Vector3.Lerp(transform.rotation.eulerAngles, to, Time.deltaTime);
+        isPlayable = true;
+    }
 }
