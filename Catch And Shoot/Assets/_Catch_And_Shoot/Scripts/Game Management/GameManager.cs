@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
 
     private Button _input;
     [HideInInspector] public GameObject player;
+    public GameObject closest;
     [HideInInspector] public GameObject cam;
     [HideInInspector] public GameObject ball;
 
@@ -84,6 +85,9 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !_startOnce)
             StartButton();
+
+        if (closest == null)
+            FindClosest();
     }
 
     public void BallChange(GameObject newBall)
@@ -145,8 +149,40 @@ public class GameManager : MonoBehaviour
     {
         player = x;
         player.GetComponent<PlayerNPC>().enabled = false;
+        player.tag = "Untagged";
+        closest = null;
         var to = new Vector3(0, 0, 0);
         player.transform.eulerAngles = Vector3.Lerp(transform.rotation.eulerAngles, to, Time.deltaTime);
         isPlayable = true;
+    }
+
+    public void Throw ()
+    {
+        isPressed = false;
+        isPlayable = false;
+        player.transform.GetChild(0).GetComponent<Animator>().SetTrigger("Throw");
+        player.transform.GetChild(0).GetComponent<Animator>().SetBool("isRunning", false);
+        player.GetComponent<PlayerMovement>().enabled = false;
+    }
+
+    private void FindClosest()
+    {
+        GameObject[] players;
+        players = GameObject.FindGameObjectsWithTag("Member");
+        float distance = Mathf.Infinity;
+
+        foreach (GameObject obj in players)
+        {
+            Vector3 diff = obj.transform.position - player.transform.position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance && ball.transform.position.z < obj.transform.position.z)
+            {
+                closest = obj;
+                distance = curDistance;
+            }
+        }
+
+        if(closest != null)
+            closest.GetComponent<PlayerNPC>().isClosest = true;
     }
 }

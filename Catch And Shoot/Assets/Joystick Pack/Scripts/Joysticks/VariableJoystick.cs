@@ -47,11 +47,7 @@ public class VariableJoystick : Joystick
 
     public override void OnPointerUp(PointerEventData eventData)
     {
-        GameManager.Instance.isPressed = false;
-        GameManager.Instance.isPlayable = false;
-        GameManager.Instance.player.transform.GetChild(0).GetComponent<Animator>().SetTrigger("Throw");
-        GameManager.Instance.player.transform.GetChild(0).GetComponent<Animator>().SetBool("isRunning", false);
-        GameManager.Instance.player.GetComponent<PlayerMovement>().enabled = false;
+        GameManager.Instance.Throw();
 
         if (joystickType != JoystickType.Fixed)
             background.gameObject.SetActive(false);
