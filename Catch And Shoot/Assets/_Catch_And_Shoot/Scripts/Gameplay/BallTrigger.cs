@@ -21,7 +21,7 @@ public class BallTrigger : MonoBehaviour
         if(other.CompareTag("Coin") && _ballScript.GetThrown())
         {
             other.GetComponent<Animator>().SetTrigger("CoinGet");
-            GameManager.Instance.ScoreChange();
+            GameManager.Instance.ScoreChange(10);
         }
     }
 
@@ -32,6 +32,8 @@ public class BallTrigger : MonoBehaviour
             rig.isKinematic = true;
             rig.velocity = Vector3.zero;
             rig.useGravity = false;
+            var x = collision.collider.GetComponent<BonusMultiplier>().bonusMultiplier;
+            GameManager.Instance.ScoreChange(x);
             GameManager.Instance.success = true;
             GameManager.Instance.LevelCheck();
         }

@@ -24,7 +24,7 @@ public class PlayerTrigger : MonoBehaviour
         if(other.CompareTag("Coin"))
         {
             other.GetComponent<Animator>().SetTrigger("CoinGet");
-            GameManager.Instance.ScoreChange();
+            GameManager.Instance.ScoreChange(10);
         }
         else if (other.CompareTag("FinishLine"))
         {
@@ -34,6 +34,7 @@ public class PlayerTrigger : MonoBehaviour
         else if (other.CompareTag("Npc"))
         {
             failCounter++;
+            Debug.Log(failCounter);
             if(failCounter >= 5)
             {
                 GameManager.Instance.LevelCheck();

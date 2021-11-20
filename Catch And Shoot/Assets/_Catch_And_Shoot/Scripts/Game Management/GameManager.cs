@@ -92,9 +92,9 @@ public class GameManager : MonoBehaviour
             FindClosest();
     }
 
-    public void ScoreChange()
+    public void ScoreChange(int x)
     {
-        score++;
+        score += x;
         _score.text = score.ToString();
     }
 

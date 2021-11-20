@@ -77,30 +77,30 @@ public class PlayerNPC : MonoBehaviour
             else if (Distance <= _catchDis)
             {
                 var y = ball.transform.position.y - transform.position.y;
-                if (ball.transform.position.x < transform.position.x || ball.transform.position.x > ball.transform.position.x)
-                {
-                    var x = ball.transform.position.x - transform.position.x;
-                    if (x < -3)
-                    {
-                        Debug.Log("Jump Right");
-                        _anim.Play("Jump Right");
-                    }
-                    else if (x > 3)
-                    {
-                        Debug.Log("Jump Left");
-                        _anim.Play("Jump Left");
-                    }
-                }
-                else if (y <= 3)
-                {
-                    Debug.Log("Catch the Ball");
-                    _anim.Play("Catch");
-                }
-                else if (y > 3)
-                {
-                    Debug.Log("Jump Up");
-                    _anim.Play("Jump Up");
-                }
+                //if (ball.transform.position.x < transform.position.x || ball.transform.position.x > ball.transform.position.x)
+                //{
+                //    var x = ball.transform.position.x - transform.position.x;
+                //    if (x < -3)
+                //    {
+                //        Debug.Log("Jump Right");
+                //        _anim.Play("Jump Right");
+                //    }
+                //    else if (x > 3)
+                //    {
+                //        Debug.Log("Jump Left");
+                //        _anim.Play("Jump Left");
+                //    }
+                //}
+                //else if (y <= 3)
+                //{
+                //    Debug.Log("Catch the Ball");
+                //    _anim.Play("Catch");
+                //}
+                //else if (y > 3)
+                //{
+                //    Debug.Log("Jump Up");
+                //    _anim.Play("Jump Up");
+                //}
 
                 _anim.SetBool("isRunning", false);
                 ball.GetComponent<BallScript>().GotCaught();

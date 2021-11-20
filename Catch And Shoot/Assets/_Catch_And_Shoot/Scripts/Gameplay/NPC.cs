@@ -34,15 +34,18 @@ public class NPC : MonoBehaviour
 
         if (Distance <= _catchDis)
         {
-            Debug.Log("Got ya!");
             _anim.SetTrigger("Tackle");
             agent.enabled = false;
         }
         else if(Distance <= _range && target.transform.position.z < transform.position.z)
         {
             _anim.SetBool("isRunning", true);
-            agent.SetDestination(target.transform.position);
-            Debug.Log("On ya!");
+            if(target != null && agent.enabled)
+                agent.SetDestination(target.transform.position);
+        }
+        else
+        {
+            _anim.SetBool("isRunning", false);
         }
     }
 }
