@@ -9,6 +9,7 @@ TagManager:
   - Coin
   - Bonus
   - Npc
+  - Edge
   layers:
   - Default
   - TransparentFX
