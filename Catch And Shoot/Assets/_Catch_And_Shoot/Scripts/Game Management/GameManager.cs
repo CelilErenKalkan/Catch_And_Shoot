@@ -18,12 +18,13 @@ public class GameManager : MonoBehaviour
     private TMP_Text _successful;
     private TMP_Text _fail;
     private Button _next;
+    private TMP_Text _score;
     [HideInInspector] public GameObject FTUE;
 
 
     [Header("Mathematic")]
-    public int score = 0; //Penguins that player got.
-    public int total = 0; //Total amount of penguins.
+    public int score = 0;
+    public int total = 0;
     [HideInInspector] public int lvl;
 
     [Header("Booleans")]
@@ -65,10 +66,10 @@ public class GameManager : MonoBehaviour
         _level = canvas.transform.GetChild(0).GetComponent<TMP_Text>();
         _successful = canvas.transform.GetChild(1).GetComponent<TMP_Text>();
         _fail = canvas.transform.GetChild(2).GetComponent<TMP_Text>();
-        _input = canvas.transform.GetChild(3).GetComponent<Button>();
-        _next = canvas.transform.GetChild(4).GetComponent<Button>();
-        FTUE = canvas.transform.GetChild(5).gameObject;
-        _start = canvas.transform.GetChild(7).gameObject;
+        _next = canvas.transform.GetChild(3).GetComponent<Button>();
+        _input = canvas.transform.GetChild(4).GetComponent<Button>();
+        _start = canvas.transform.GetChild(6).gameObject;
+        _score = canvas.transform.GetChild(7).transform.GetChild(0).GetComponent<TMP_Text>();
         cam = GameObject.Find("Follower Camera");
     }
 
@@ -77,6 +78,7 @@ public class GameManager : MonoBehaviour
     {
         lvl = PlayerPrefs.GetInt("Level", 1);
         _level.text = "LEVEL " + lvl;
+        _score.text = score.ToString();
     }
 
 
@@ -90,21 +92,18 @@ public class GameManager : MonoBehaviour
             FindClosest();
     }
 
-    public void BallChange(GameObject newBall)
+    public void ScoreChange()
     {
-        ball = newBall;
-        newBall.SetActive(true);
-        cam.GetComponent<CameraZoom>().TargetChanger(ball, cam.transform.position);
+        score++;
+        _score.text = score.ToString();
     }
 
     public void LevelCheck()
     {
-        canvas.transform.GetChild(5).gameObject.SetActive(false);
         if (success)
         {
             if (!success) return;
             start = false;
-            confetties.SetActive(true);
             _successful.gameObject.SetActive(true);
             _next.gameObject.SetActive(true);
         }
@@ -115,35 +114,16 @@ public class GameManager : MonoBehaviour
             isPlayable = false;
             _fail.gameObject.SetActive(true);
             _next.gameObject.SetActive(true);
-            //StartCoroutine(StopTime());
         }
     }
 
-    //public void StartButton()
-    //{
-    //    _start.SetActive(false);
-    //    _level.gameObject.SetActive(true);
-    //    if (GameManager.Instance.lvl == 1)
-    //    {
-    //        StartCoroutine(FirstTime(FTUE));
-    //    }
-    //    isPlayable = true;
-    //    _startOnce = true;
-    //}
-
-    //public IEnumerator FirstTime(GameObject x)
-    //{
-    //    x.gameObject.SetActive(true);
-    //    yield return new WaitForSeconds(3.0f);
-    //    x.gameObject.SetActive(false);
-    //}
-
-    //public IEnumerator Timer()
-    //{
-    //    start = false;
-    //    yield return new WaitForSeconds(2.0f);
-    //    start = true;
-    //}
+    public void StartButton()
+    {
+        _start.SetActive(false);
+        _level.gameObject.SetActive(true);
+        isPlayable = true;
+        _startOnce = true;
+    }
 
     public void PlayerChange(GameObject x)
     {

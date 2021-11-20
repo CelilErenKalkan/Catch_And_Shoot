@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Member
+  - FinishLine
+  - Coin
+  - Bonus
+  - Npc
   layers:
   - Default
   - TransparentFX

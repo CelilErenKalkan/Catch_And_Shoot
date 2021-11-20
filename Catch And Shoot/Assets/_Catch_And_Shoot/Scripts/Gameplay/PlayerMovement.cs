@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 direction = Vector3.forward + Vector3.right * variableJoystick.Horizontal * varSpeed;
             var toLook = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, toLook.normalized, Time.fixedDeltaTime * 2);
+            if (speed == 0) return;
             transform.Translate(transform.forward * speed * Time.fixedDeltaTime, Space.World);
         }
     }

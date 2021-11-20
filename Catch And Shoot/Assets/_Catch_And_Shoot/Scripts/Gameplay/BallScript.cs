@@ -36,7 +36,7 @@ public class BallScript : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider.isTrigger)
+                if (hit.collider.isTrigger && hit.collider.CompareTag("Member"))
                 {
                     GameManager.Instance.closest.GetComponent<PlayerNPC>().destination = hit.point;
                 }
@@ -58,5 +58,10 @@ public class BallScript : MonoBehaviour
         coll.isTrigger = true;
         rigid.velocity = Vector3.zero;
         rigid.useGravity = false;
+    }
+
+    public bool GetThrown()
+    {
+        return hasThrown;
     }
 }

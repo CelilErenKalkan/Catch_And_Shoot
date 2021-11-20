@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-namespace _samurairun.Scripts.Utilities
-{
-    public class ButtonFunctions : MonoBehaviour
+
+public class ButtonFunctions : MonoBehaviour
     {
         
         private Vector3 _offset1 = new Vector3(0.0f, 1.8f, -3.0f);
@@ -13,10 +13,8 @@ namespace _samurairun.Scripts.Utilities
         private GameObject mat;
 
 
-
-        public void PlayerThrow()
+        public void LoadLevel()
         {
-            
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
-}

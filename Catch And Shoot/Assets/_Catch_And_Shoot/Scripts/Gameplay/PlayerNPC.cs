@@ -12,6 +12,7 @@ public class PlayerNPC : MonoBehaviour
     private NavMeshAgent agent;
     private Animator _anim;
     private PlayerMovement playerMovement;
+    private PlayerTrigger playerTrigger;
 
     private float _range = 25.0f;
     private float _catchDis = 2.0f;
@@ -22,6 +23,7 @@ public class PlayerNPC : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         playerMovement = gameObject.GetComponent<PlayerMovement>();
+        playerTrigger = gameObject.GetComponent<PlayerTrigger>();
         _anim = transform.GetChild(0).GetComponent<Animator>();
         guideLine = gameObject.transform.GetChild(1).gameObject;
         rightHand = gameObject.transform.GetChild(0).transform.GetChild(0)
@@ -107,16 +109,9 @@ public class PlayerNPC : MonoBehaviour
                 ball.transform.localPosition = new Vector3(0.067f, 0.056f, 0.1f);
                 agent.enabled = false;
                 playerMovement.enabled = true;
+                playerTrigger.enabled = true;
                 GameManager.Instance.PlayerChange(gameObject);
             }
         }
     }
-
-    //Vector3 DestinationCalculator()
-    //{
-    //    var z = Mathf.Abs(transform.position.z - ball.transform.position.z);
-    //    var angle = Vector3.Angle(GameManager.Instance.player.transform.forward, transform.forward * -1);
-    //    var x = Mathf.Tan(angle) * z;
-    //    return new Vector3(x, transform.position.y, transform.position.z);
-    //}
 }
