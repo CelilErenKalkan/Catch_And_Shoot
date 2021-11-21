@@ -48,5 +48,11 @@ public class BallTrigger : MonoBehaviour
             GameManager.Instance.LevelCheck();
             _once = true;
         }
+        else if (collision.collider.CompareTag("Obstacle"))
+        {
+            GameManager.Instance.LevelCheck();
+            _ball.GetComponent<Rigidbody>().useGravity = true;
+            _ballScript.ReleaseMe();
+        }
     }
 }

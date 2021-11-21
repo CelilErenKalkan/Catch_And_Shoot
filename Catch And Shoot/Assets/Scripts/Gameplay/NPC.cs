@@ -36,7 +36,6 @@ public class NPC : MonoBehaviour
         {
             _anim.SetTrigger("Tackle");
             agent.enabled = false;
-            target = null;
         }
         else if(Distance <= _range && target.transform.position.z < transform.position.z)
         {

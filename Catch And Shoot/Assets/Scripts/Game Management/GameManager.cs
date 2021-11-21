@@ -64,8 +64,8 @@ public class GameManager : MonoBehaviour
         _level = canvas.transform.GetChild(0).GetComponent<TMP_Text>();
         _successful = canvas.transform.GetChild(1).GetComponent<TMP_Text>();
         _fail = canvas.transform.GetChild(2).GetComponent<TMP_Text>();
-        _next = canvas.transform.GetChild(3).GetComponent<Button>();
-        _input = canvas.transform.GetChild(4).GetComponent<Button>();
+        _next = canvas.transform.GetChild(4).GetComponent<Button>();
+        _input = canvas.transform.GetChild(5).GetComponent<Button>();
         _start = canvas.transform.GetChild(6).gameObject;
         _score = canvas.transform.GetChild(7).transform.GetChild(0).GetComponent<TMP_Text>();
         cam = GameObject.Find("Follower Camera");
@@ -99,6 +99,7 @@ public class GameManager : MonoBehaviour
 
     public void LevelCheck() // Checks if level is success or not
     {
+        isPlayable = false;
         if (success)
         {
             if (!success) return;
@@ -114,6 +115,13 @@ public class GameManager : MonoBehaviour
             _fail.gameObject.SetActive(true);
             _next.gameObject.SetActive(true);
         }
+        StartCoroutine(TimeStopper());
+    }
+
+    private IEnumerator TimeStopper()
+    {
+        yield return new WaitForSeconds(3);
+        Time.timeScale = 0;
     }
 
     public void StartButton() // Starts the game
