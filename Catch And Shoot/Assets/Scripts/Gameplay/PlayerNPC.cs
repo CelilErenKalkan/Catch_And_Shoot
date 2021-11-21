@@ -103,6 +103,7 @@ public class PlayerNPC : MonoBehaviour
                 //}
 
                 _anim.SetBool("isRunning", false);
+                _anim.SetBool("isIdle", true);
                 ball.GetComponent<BallScript>().GotCaught();
                 //ball.GetComponent<SphereCollider>().enabled = false;
                 ball.transform.parent = rightHand.transform;

@@ -32,6 +32,11 @@ public class PlayerTrigger : MonoBehaviour
             _anim.SetBool("isRunning", false);
             GameManager.Instance.confetties.SetActive(true);
         }
+        else if (other.CompareTag("EndLine") && GameManager.Instance.isPlayable)
+        {
+            _playerScript.speed = 0;
+            _anim.SetBool("isRunning", false);
+        }
         else if (other.CompareTag("Npc"))
         {
             failCounter++;
@@ -45,6 +50,10 @@ public class PlayerTrigger : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        
+        if(collision.collider.CompareTag("Obstacle"))
+        {
+            _anim.Play("Fail");
+            GameManager.Instance.LevelCheck();
+        }
     }
 }

@@ -8,7 +8,7 @@ public class NPC : MonoBehaviour
     private NavMeshAgent agent;
     private Animator _anim;
     private float _range = 25.0f;
-    private float _catchDis = 5.0f;
+    private float _catchDis = 2.0f;
     private GameObject target;
 
     // Start is called before the first frame update
@@ -36,6 +36,7 @@ public class NPC : MonoBehaviour
         {
             _anim.SetTrigger("Tackle");
             agent.enabled = false;
+            target = null;
         }
         else if(Distance <= _range && target.transform.position.z < transform.position.z)
         {

@@ -10,6 +10,9 @@ TagManager:
   - Bonus
   - Npc
   - Edge
+  - EndLine
+  - Detector
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -19,7 +22,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Detector
   - 
   - 
   - 

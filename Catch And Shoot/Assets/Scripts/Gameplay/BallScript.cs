@@ -8,7 +8,9 @@ public class BallScript : MonoBehaviour
     private Rigidbody rigid;
     private Collider coll;
     [SerializeField]private bool hasThrown;
-    private float constantSpeed = 30.0f;
+    private float constantSpeed = 20.0f;
+
+    private int layer_mask;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +19,8 @@ public class BallScript : MonoBehaviour
         rigid = gameObject.GetComponent<Rigidbody>();
         coll = gameObject.GetComponent<SphereCollider>();
         rigid.useGravity = false;
+
+         layer_mask = LayerMask.GetMask("Detector");
     }
 
     // Update is called once per frame
@@ -27,6 +31,7 @@ public class BallScript : MonoBehaviour
         {
             transform.parent = null;
             rigid.useGravity = true;
+            rigid.isKinematic = false;
             coll.isTrigger = false;
             transform.rotation = parentbone.transform.rotation;
             var dir = GameManager.Instance.player.transform.forward;
@@ -34,11 +39,15 @@ public class BallScript : MonoBehaviour
 
             Ray ray = new Ray(GameManager.Instance.player.transform.position, GameManager.Instance.player.transform.forward);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, 100.0f, layer_mask))
             {
-                if (hit.collider.isTrigger && hit.collider.CompareTag("Member"))
+                if (hit.collider.isTrigger && hit.collider.CompareTag("Detector"))
                 {
-                    GameManager.Instance.closest.GetComponent<PlayerNPC>().destination = hit.point;
+                    if (GameManager.Instance.closest != null)
+                    {
+                        GameManager.Instance.closest.GetComponent<PlayerNPC>().destination = hit.point;
+                        hit.collider.isTrigger = true;
+                    }
                 }
             }
         }
@@ -60,6 +69,7 @@ public class BallScript : MonoBehaviour
         coll.isTrigger = true;
         rigid.velocity = Vector3.zero;
         rigid.useGravity = false;
+        rigid.isKinematic = true;
     }
 
     public bool GetThrown()
